@@ -103,7 +103,13 @@ print("hit or stay")
 
 if player_choice() == "hit":
     player.add_card(deck.pop())
-    print(player.hand[len(player.hand) - 1])
+    print("You drew ", player.hand[len(player.hand) - 1])
+    print(player.hand)
+    if player.get_score() > 21:
+        print("bust")
+        red_led.value = True
+        break
+    
 elif player_choice() == "stay":
     . #code for staying
 
