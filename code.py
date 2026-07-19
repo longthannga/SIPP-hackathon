@@ -83,10 +83,10 @@ def main():
 
     # set up buttons
     hit_button = digitalio.DigitalInOut(board.D11)
-    stop_button = digitalio.DigitalInOut(board.D10)
+    stay_button = digitalio.DigitalInOut(board.D10)
     
 
-    buttons = [hit_button, stop_button]
+    buttons = [hit_button, stay_button]
 
     for button in buttons:
         button.direction = digitalio.Direction.INPUT
@@ -97,6 +97,18 @@ def get_player_choice():
 
 # main game
 
+# need code for press any button to start the game
+
+player.add_card(deck.pop())
+player.add_card(deck.pop())
+
+dealer.add_card(deck.pop())
+dealer.add_card(deck.pop())
+
+print("Dealer's hand: ")
+print("? ", dealer.hand[1])
+
+
 while player.get_score() < 21:
 
 print("hit or stay")
@@ -104,17 +116,30 @@ print("hit or stay")
 choice = get_player_choice()
 
 if choice == "hit":
-    player.add_card(deck.pop())
+    player.add_card(deck.pop()) # remove card from the deck and add to player hand
     print("You drew ", player.hand[len(player.hand) - 1])
-    print(player.show_hand)
+    player.show_hand()
     
     if player.get_score() > 21:
         print("bust")
-        red_led.value = True
+        red_led.value = True # if score is over 21, turn on red led
         break
 
 elif choice == "stay":
-    . #code for staying
+    print("dealer's turn")
+    print("Dealer's hand: ")
+    dealer.show_hand()
+    
+    while dealer.get_score() < 17:
+        dealer.add_card(deck.pop())
+        print("Dealer drew ", dealer.hand[len(dealer.hand) - 1])
+        dealer.show_hand()
+
+        if dealer.get_score() > 21:
+            print("dealer busts")
+            print("You win!")
+            green_led.value = True # if dealer busts, turn on green led
+            break
 
 
 
