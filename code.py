@@ -3,65 +3,97 @@ import digitalio
 import random
 import time
 
-# set up leds
-red_led = digitalio.DigitalInOut(board.D5)
-blue_led = digitalio.DigitalInOut(board.D4)
-green_led = digitalio.DigitalInOut(board.D3)
-yellow_led = digitalio.DigitalInOut(board.D2)
+# Cards
+class Card:
+    def __init__(self, suit, value):
+        self.suit = suit
+        self.value = value
 
-leds = [red_led, blue_led, green_led, yellow_led]
+    def __str__(self):
+        if self.value == 11:
+            return f"Jack of {self.suit}"
+        elif self.value == 12:
+            return f"Queen of {self.suit}"
+        elif self.value == 13:
+            return f"King of {self.suit}"
+        elif self.value == 1:
+            return f"Ace of {self.suit}"
+        else:
+            return f"{self.value} of {self.suit}"
+    
+    def get_value(self):
+        if 11 <= self.value <= 13:
+            return 10
+        else:
+            return self.value
 
-for led in leds:
-    led.direction = digitalio.Direction.OUTPUT
-    led.value = False
+    def is_ace(self):
+        return self.value == 1
+    
+# Players
+class Player:
+    def __init__(self):
+        self.hand = []
+        self.score = 0
 
-# set up buttons
-red_button = digitalio.DigitalInOut(board.D11)
-blue_button = digitalio.DigitalInOut(board.D10)
-green_button = digitalio.DigitalInOut(board.D9)
-yellow_button = digitalio.DigitalInOut(board.D8)
+    def add_card(self, card):
+        self.hand.append(card)
+        self.score = self.calculate_score()
 
-buttons = [red_button, blue_button, green_button, yellow_button]
+    def calculate_score(self):
+        total = sum(card.get_value() for card in self.hand)
+        aces = sum(card.is_ace() for card in self.hand)
 
-for button in buttons:
-   button.direction = digitalio.Direction.INPUT
-   button.pull = digitalio.PULL.UP
+        #Ace can be 1 or 11 favorably, so if adding 10 doesn't bust the player, we add it
+        while aces > 0 and total + 10 <= 21: 
+            total += 10
+            aces -= 1
 
-sequence = []
+        return total
 
-# show the sequence
-def show_sequence():
-    for color in sequence:
-        leds[color].value = True
-        time.sleep(0.5)
-        leds[color].value = False
+    def show_hand(self):
+        for card in self.hand:
+            print(card)
 
-# add a random color to sequence
-def add_to_sequence():
-    sequence.append(random.randint(0, 3))
-
-# check player's input
-def check_player_input():
-    for correct_color in sequence:
-        if press_color() != correct_color:
-            return False
-
-    return True
-
-def press_button():
-    # code for pressing button
-
-# main game
-while True:
-    add_to_sequence()
-
-    show_sequence()
-
-    # check player's answer
-
-    # if wrong end game
+    def get_score(self):
+        return self.score
 
 
+def main():
+    # create a deck of cards
+    suits = ["Hearts", "Diamonds", "Clubs", "Spades"]
+    values = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13] # Jack=11, Queen=12, King=13, Ace=1
+    deck = [Card(suit, value) for suit in suits for value in values]
+    random.shuffle(deck)
+
+    dealer = Player()
+    player = Player()
+
+
+    # set up leds
+    red_led = digitalio.DigitalInOut(board.D3)
+    green_led = digitalio.DigitalInOut(board.D4)
+
+    leds = [red_led, green_led,]
+
+    for led in leds:
+        led.direction = digitalio.Direction.OUTPUT
+        led.value = False
+
+    # set up buttons
+    hit_button = digitalio.DigitalInOut(board.D11)
+    stop_button = digitalio.DigitalInOut(board.D10)
+    
+
+    buttons = [hit_button, stop_button]
+
+    for button in buttons:
+        button.direction = digitalio.Direction.INPUT
+        button.pull = digitalio.PULL.UP
+
+
+
+main()
 
 
 
