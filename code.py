@@ -97,11 +97,13 @@ def get_player_choice():
 
 # main game
 
-while player.score() < 21:
+while player.get_score() < 21:
 
 print("hit or stay")
 
-if get_player_choice() == "hit":
+choice = get_player_choice()
+
+if choice == "hit":
     player.add_card(deck.pop())
     print("You drew ", player.hand[len(player.hand) - 1])
     print(player.hand)
@@ -110,7 +112,7 @@ if get_player_choice() == "hit":
         red_led.value = True
         break
 
-elif get_player_choice() == "stay":
+elif choice == "stay":
     . #code for staying
 
 
