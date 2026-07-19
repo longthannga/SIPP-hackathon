@@ -140,6 +140,15 @@ while player.get_score() < 21:
                 green_led.value = True # if dealer busts, turn on green led
                 break
 
+        if dealer.get_score() > player.get_score():
+            print("Dealer wins!")
+            red_led.value = True # if dealer wins, turn on red led
+        elif dealer.get_score() < player.get_score():
+            print("You win!")
+            green_led.value = True # if player wins, turn on green led
+        else:
+            print("It's a tie!")
+
 
 
 
