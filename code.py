@@ -92,7 +92,7 @@ def main():
         button.direction = digitalio.Direction.INPUT
         button.pull = digitalio.PULL.UP
 
-def player_choice():
+def get_player_choice():
     .#code for player's choice
 
 # main game
@@ -101,7 +101,7 @@ while player.score() < 21:
 
 print("hit or stay")
 
-if player_choice() == "hit":
+if get_player_choice() == "hit":
     player.add_card(deck.pop())
     print("You drew ", player.hand[len(player.hand) - 1])
     print(player.hand)
@@ -109,8 +109,8 @@ if player_choice() == "hit":
         print("bust")
         red_led.value = True
         break
-    
-elif player_choice() == "stay":
+
+elif get_player_choice() == "stay":
     . #code for staying
 
 
