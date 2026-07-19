@@ -40,6 +40,7 @@ class Player:
         self.hand.append(card)
         self.score = self.calculate_score()
 
+
     def calculate_score(self):
         total = sum(card.get_value() for card in self.hand)
         aces = sum(card.is_ace() for card in self.hand)
@@ -91,9 +92,21 @@ def main():
         button.direction = digitalio.Direction.INPUT
         button.pull = digitalio.PULL.UP
 
+def player_choice():
+    .#code for player's choice
 
+# main game
 
-main()
+while player.score() < 21:
+
+print("hit or stay")
+
+if player_choice() == "hit":
+    player.add_card(deck.pop())
+    print(player.hand[len(player.hand) - 1])
+elif player_choice() == "stay":
+    . #code for staying
+
 
 
 
