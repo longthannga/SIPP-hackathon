@@ -60,37 +60,36 @@ class Player:
         return self.score
 
 
-def main():
-    # create a deck of cards
-    suits = ["Hearts", "Diamonds", "Clubs", "Spades"]
-    values = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13] # Jack=11, Queen=12, King=13, Ace=1
-    deck = [Card(suit, value) for suit in suits for value in values]
-    random.shuffle(deck)
+# create a deck of cards
+suits = ["Hearts", "Diamonds", "Clubs", "Spades"]
+values = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13] # Jack=11, Queen=12, King=13, Ace=1
+deck = [Card(suit, value) for suit in suits for value in values]
+random.shuffle(deck)
 
-    dealer = Player()
-    player = Player()
+dealer = Player()
+player = Player()
 
 
-    # set up leds
-    red_led = digitalio.DigitalInOut(board.D3)
-    green_led = digitalio.DigitalInOut(board.D4)
+# set up leds
+red_led = digitalio.DigitalInOut(board.D3)
+green_led = digitalio.DigitalInOut(board.D4)
 
-    leds = [red_led, green_led,]
+leds = [red_led, green_led,]
 
-    for led in leds:
-        led.direction = digitalio.Direction.OUTPUT
-        led.value = False
+for led in leds:
+    led.direction = digitalio.Direction.OUTPUT
+    led.value = False
 
-    # set up buttons
-    hit_button = digitalio.DigitalInOut(board.D11)
-    stay_button = digitalio.DigitalInOut(board.D10)
+# set up buttons
+hit_button = digitalio.DigitalInOut(board.D11)
+stay_button = digitalio.DigitalInOut(board.D10)
     
 
-    buttons = [hit_button, stay_button]
+buttons = [hit_button, stay_button]
 
-    for button in buttons:
-        button.direction = digitalio.Direction.INPUT
-        button.pull = digitalio.PULL.UP
+for button in buttons:
+    button.direction = digitalio.Direction.INPUT
+    button.pull = digitalio.PULL.UP
 
 def get_player_choice():
     .#code for player's choice
@@ -111,35 +110,35 @@ print("? ", dealer.hand[1])
 
 while player.get_score() < 21:
 
-print("hit or stay")
+    print("hit or stay")
 
-choice = get_player_choice()
+    choice = get_player_choice()
 
-if choice == "hit":
-    player.add_card(deck.pop()) # remove card from the deck and add to player hand
-    print("You drew ", player.hand[len(player.hand) - 1])
-    player.show_hand()
+    if choice == "hit":
+        player.add_card(deck.pop()) # remove card from the deck and add to player hand
+        print("You drew ", player.hand[len(player.hand) - 1])
+        player.show_hand()
     
-    if player.get_score() > 21:
-        print("bust")
-        red_led.value = True # if score is over 21, turn on red led
-        break
+        if player.get_score() > 21:
+            print("You bust")
+            red_led.value = True # if score is over 21, turn on red led
+            break
 
-elif choice == "stay":
-    print("dealer's turn")
-    print("Dealer's hand: ")
-    dealer.show_hand()
-    
-    while dealer.get_score() < 17:
-        dealer.add_card(deck.pop())
-        print("Dealer drew ", dealer.hand[len(dealer.hand) - 1])
+    elif choice == "stay":
+        print("Dealer's turn")
+        print("Dealer's hand: ")
         dealer.show_hand()
 
-        if dealer.get_score() > 21:
-            print("dealer busts")
-            print("You win!")
-            green_led.value = True # if dealer busts, turn on green led
-            break
+        while dealer.get_score() < 17:
+            dealer.add_card(deck.pop())
+            print("Dealer drew ", dealer.hand[len(dealer.hand) - 1])
+            dealer.show_hand()
+
+            if dealer.get_score() > 21:
+                print("Dealer busts")
+                print("You win!")
+                green_led.value = True # if dealer busts, turn on green led
+                break
 
 
 
