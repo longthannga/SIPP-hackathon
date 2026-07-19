@@ -106,7 +106,8 @@ choice = get_player_choice()
 if choice == "hit":
     player.add_card(deck.pop())
     print("You drew ", player.hand[len(player.hand) - 1])
-    print(player.hand)
+    print(player.show_hand)
+    
     if player.get_score() > 21:
         print("bust")
         red_led.value = True
