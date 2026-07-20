@@ -60,10 +60,10 @@ The breadboard layout (see included circuit diagram) is as follows:
 ## Team
 
 Built at the UCSD SIPP Program hackathon, Summer 2026.
-- Terrence Chou (tchou1)
-- Sam Ban (SamBan2601)
-- Hoang Long Nguyen (longthannga)
-- James Watkins (j3watkins-star)
+- Terrence Chou (GitHub: [tchou1](https://github.com/tchou1))
+- Sam Ban (GitHub: [SamBan2601](https://github.com/SamBan2601))
+- Hoang Long Nguyen (GitHub: [longthannga](https://github.com/longthannga))
+- James Watkins (GitHub: [j3watkins-star](https://github.com/j3watkins-star))
 
 ## Possible Future Improvements
 
