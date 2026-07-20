@@ -145,6 +145,7 @@ while True:
         # only print when score changes
         if player_score != last_score:
             print("Dealer Hand:")
+            print(" - ?")
             print(" -", card_str(dealer.hand[0]))
             print("Player Hand:")
             player.show_hand()
