@@ -120,6 +120,7 @@ deck, player, dealer = new_game()
 gc.collect()
 game_over = False
 last_score = -1
+last_hand_size = 0
 
 print("=== BLACKJACK ===")
 
@@ -139,11 +140,12 @@ while True:
             deck, player, dealer = new_game()
             game_over = False
             last_score = -1
+            last_hand_size = 0
             print("\nNew Game")
-    else:
+    else:    
         player_score = player.get_score()
-        # only print when score changes
-        if player_score != last_score:
+        # print when score or hand changes
+        if player_score != last_score or len(player.hand) != last_hand_size:
             print("Dealer Hand:")
             print(" - ?")
             print(" -", card_str(dealer.hand[1]))
@@ -151,6 +153,7 @@ while True:
             player.show_hand()
             print("Player Score:", player_score)
             last_score = player_score
+            last_hand_size = len(player.hand)
 
         # Blackjack
         if player_score == 21:
