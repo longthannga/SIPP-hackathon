@@ -122,7 +122,7 @@ game_over = False
 last_score = -1
 last_hand_size = 0
 
-print("=== BLACKJACK ===")
+print("==BLACKJACK==")
 
 # ======================
 # Main Loop
@@ -144,6 +144,10 @@ while True:
             print("\nNew Game")
     else:    
         player_score = player.get_score()
+
+        # determine if you got blackjack
+        got_blackjack = (player_score == 21 and len(player.hand) == 2 and last_score != 21)
+
         # print when score or hand changes
         if player_score != last_score or len(player.hand) != last_hand_size:
             print("Dealer Hand:")
@@ -151,15 +155,14 @@ while True:
             print(" -", card_str(dealer.hand[1]))
             print("Player Hand:")
             player.show_hand()
-            print("Player Score:", player_score)
+            print("Player Score:", player_score, "\n")
             last_score = player_score
             last_hand_size = len(player.hand)
 
         # Blackjack
-        if player_score == 21:
-            print("BLACKJACK! YOU WIN")
-            green_led.value = True
-            game_over = True
+        if got_blackjack:
+            print("BLACKJACK!\n")
+            time.sleep(.4)
 
         # Bust
         elif player_score > 21:
@@ -176,7 +179,7 @@ while True:
             gc.collect()
 
         # Stand
-        if not game_over and not stand_button.value:
+        if not game_over and (not stand_button.value or got_blackjack):
             time.sleep(0.3)
             print("Dealer turn")
             while dealer.get_score() < 17:
