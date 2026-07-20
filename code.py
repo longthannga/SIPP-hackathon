@@ -122,7 +122,7 @@ game_over = False
 last_score = -1
 last_hand_size = 0
 
-print("==BLACKJACK==")
+print("=== BLACKJACK ===")
 
 # ======================
 # Main Loop
@@ -161,8 +161,8 @@ while True:
 
         # Blackjack
         if got_blackjack:
-            print("BLACKJACK!\n")
-            time.sleep(.4)
+            print("BLACKJACK\n")
+            time.sleep(.5)
 
         # Bust
         elif player_score > 21:
