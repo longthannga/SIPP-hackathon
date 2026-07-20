@@ -19,7 +19,7 @@ Two push buttons let you **Hit** or **Stand**, and a green/red LED pair tells yo
 
 ## Hardware
 
-- **Board:** Adafruit Metro M0 Express (runs CircuitPython) (for more info: [https://sites.google.com/view/circuitpython/board-info?authuser=0](SIPP_Board_Info))
+- **Board:** Adafruit Metro M0 Express (runs CircuitPython) (for more info: [SIPP Board Info](https://sites.google.com/view/circuitpython/board-info?authuser=0))
 - **Components:**
   - 2× momentary push buttons (Hit, Stand)
   - 1× green LED
